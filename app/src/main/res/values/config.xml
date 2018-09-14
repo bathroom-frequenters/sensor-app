@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="lux_threshold">200</integer>
+    <string name="secret">ASDF</string>
+    <string name="api_url">https://bathroom.somewhere.me/update</string>
+</resources>
