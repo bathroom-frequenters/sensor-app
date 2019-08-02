@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // https://stackoverflow.com/a/25093650
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // thanks to https://developer.android.com/guide/topics/sensors/sensors_environment#java
         // since the app needs to keep updating, even when the screen is off,
         // register the listener in #onCreate and do not unregister until the app is killed
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public final void onSensorChanged(SensorEvent event) {
         float lux = event.values[0];
-        boolean latestAvailability = lux > getResources().getInteger(R.integer.lux_threshold);
+        boolean latestAvailability = lux < getResources().getInteger(R.integer.lux_threshold);
 
         String availability = latestAvailability ? "available" : "unavailable";
 
