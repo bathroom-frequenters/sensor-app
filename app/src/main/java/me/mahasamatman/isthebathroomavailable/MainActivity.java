@@ -86,9 +86,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             Response response = client.newCall(request).execute();
 
-            String s = response.body().string();
-
-            if (s.equalsIgnoreCase("OK")) {
+            if (response.isSuccessful()) {
                 Date currentTime = Calendar.getInstance().getTime();
 
                 lastSync.setText("Last Sync: " + currentTime);
